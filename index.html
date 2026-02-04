@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>3D Virtual Walkthrough Tours (24h)</title>
+  <meta name="description" content="Fast 3D virtual walkthrough tours for real estate listings. Delivered in 24 hours. Simple pricing. Clean results." />
+
+  <style>
+    :root{
+      color-scheme: dark;
+      --bg:#07070b;
+      --card:#0c0c12cc;
+      --line:#ffffff14;
+      --text:#ececf6;
+      --muted:#b8b8cc;
+      --muted2:#9a9ab2;
+      --glow1:#6b5bff33;
+      --glow2:#ff4bd133;
+      --glow3:#00ffd533;
+      --white:#ffffff;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:
+        radial-gradient(1200px 650px at 15% 10%, var(--glow1), transparent 60%),
+        radial-gradient(900px 550px at 85% 25%, var(--glow2), transparent 55%),
+        radial-gradient(1100px 750px at 50% 110%, var(--glow3), transparent 60%),
+        var(--bg);
+      color:var(--text);
+      min-height:100vh;
+      padding:28px;
+    }
+    a{color:inherit}
+    .wrap{
+      width:min(1080px, 100%);
+      margin:0 auto;
+    }
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+      padding:14px 2px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:900;
+      letter-spacing:.6px;
+      text-transform:uppercase;
+    }
+    .dot{
+      width:12px;height:12px;border-radius:999px;
+      background:linear-gradient(135deg,#6b5bff,#ff4bd1,#00ffd5);
+      box-shadow:0 0 18px #6b5bff55;
+    }
+    .pill{
+      border:1px solid var(--line);
+      background:#0b0b12aa;
+      padding:10px 12px;
+      border-radius:999px;
+      color:var(--muted2);
+      font-size:13px;
+      font-weight:700;
+      white-space:nowrap;
+    }
+
+    .hero{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg,#0e0e16cc,#090910cc);
+      border-radius:26px;
+      padding:34px;
+      box-shadow:0 30px 120px #00000085;
+      backdrop-filter: blur(10px);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:radial-gradient(600px 300px at 20% 0%, #ffffff14, transparent 60%);
+      pointer-events:none;
+    }
+    h1{
+      margin:8px 0 10px;
+      font-size:clamp(34px, 6vw, 62px);
+      line-height:1.02;
+      letter-spacing:-.02em;
+    }
+    .sub{
+      color:var(--muted);
+      font-size:18px;
+      line-height:1.55;
+      max-width:68ch;
+      margin:0;
+    }
+    .row{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:22px;
+      align-items:center;
+    }
+    .btn{
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:14px 18px;
+      border-radius:14px;
+      border:1px solid #ffffff2a;
+      font-weight:900;
+      letter-spacing:.2px;
+      white-space:nowrap;
+      user-select:none;
+    }
+    .btn.primary{
+      color:#0b0b10;
+      background:linear-gradient(135deg,#ffffff,#d7d7ff);
+    }
+    .btn.secondary{
+      color:var(--text);
+      background:transparent;
+      border:1px solid var(--line);
+    }
+    .mini{
+      color:var(--muted2);
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:14px;
+      margin-top:18px;
+    }
+    .card{
+      border:1px solid var(--line);
+      background:var(--card);
+      border-radius:18px;
+      padding:16px;
+      min-height:96px;
+    }
+    .card b{display:block; margin-bottom:6px; color:#f3f3ff}
+    .card p{margin:0; color:var(--muted); line-height:1.45; font-size:14.5px}
+
+    .section{
+      margin-top:16px;
+      border:1px solid var(--line);
+      background:#0b0b12aa;
+      border-radius:22px;
+      padding:22px;
+    }
+    .section h2{
+      margin:0 0 8px;
+      font-size:22px;
+      letter-spacing:-.01em;
+    }
+    .section .hint{margin:0; color:var(--muted2); font-size:14px; line-height:1.5}
+
+    .pricing{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:14px;
+      margin-top:14px;
+    }
+    .price{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg,#0f0f18cc,#0a0a11cc);
+      border-radius:18px;
+      padding:18px;
+      position:relative;
+      overflow:hidden;
+    }
+    .price .tag{
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.4px;
+      color:#0b0b10;
+      background:linear-gradient(135deg,#ffffff,#d7d7ff);
+      padding:6px 10px;
+      border-radius:999px;
+      display:inline-block;
+    }
+    .price h3{margin:12px 0 6px; font-size:18px}
+    .price .amt{font-size:28px; font-weight:1000; margin:6px 0 10px}
+    .price ul{margin:0; padding-left:18px; color:var(--muted); line-height:1.55; font-size:14px}
+    .price .fine{margin-top:10px; color:var(--muted2); font-size:12.5px}
+
+    .how{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:14px;
+      margin-top:14px;
+    }
+    .steps{
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:16px;
+      background:#0d0d16aa;
+    }
+    .steps ol{margin:0; padding-left:18px; color:var(--muted); line-height:1.65}
+    .steps li{margin:8px 0}
+    .box{
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:16px;
+      background:#0d0d16aa;
+      color:var(--muted);
+      line-height:1.55;
+      font-size:14px;
+    }
+    code{
+      background:#ffffff10;
+      padding:2px 6px;
+      border-radius:8px;
+      border:1px solid var(--line);
+      color:#f2f2ff;
+    }
+
+    .faq{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap:14px;
+      margin-top:14px;
+    }
+    details{
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px;
+      background:#0d0d16aa;
+    }
+    summary{
+      cursor:pointer;
+      font-weight:900;
+      color:#f2f2ff;
+      list-style:none;
+    }
+    summary::-webkit-details-marker{display:none}
+    details p{margin:10px 0 0; color:var(--muted); line-height:1.55; font-size:14px}
+
+    .footer{
+      margin:16px 0 6px;
+      color:var(--muted2);
+      font-size:12.5px;
+      display:flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:10px;
+      padding:2px 2px;
+    }
+
+    .notice{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      margin-top:12px;
+      color:#a9a9c2;
+      font-size:13px;
+      font-weight:700;
+    }
+    .spark{
+      width:10px;height:10px;border-radius:999px;
+      background:#00ffd5;
+      box-shadow:0 0 14px #00ffd588;
+      flex:0 0 auto;
+    }
+
+    @media (max-width: 880px){
+      .grid{grid-template-columns:1fr}
+      .pricing{grid-template-columns:1fr}
+      .how{grid-template-columns:1fr}
+      .faq{grid-template-columns:1fr}
+      .hero{padding:22px}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="nav">
+      <div class="brand"><span class="dot"></span> 3D VIRTUAL TOURS</div>
+      <div class="pill">24h turnaround • Realtor-ready • Simple pricing</div>
+    </div>
+
+    <section class="hero">
+      <div class="pill" style="display:inline-flex; align-items:center; gap:10px;">
+        <span class="spark"></span>
+        Serving local agents • Delivered fast
+      </div>
+
+      <h1>Give buyers a virtual tour before the showing.</h1>
+      <p class="sub">
+        I create interactive 3D virtual walkthrough tours that help listings stand out, get more serious buyers, and save time.
+      </p>
+
+      <div class="row">
+        <!-- Replace the href values with your real contact -->
+        <a class="btn primary" href="mailto:rishij1995@gmail.com?subject=3D%20Virtual%20Tour%20Request&body=Hi%20Reesh%2C%20I%20want%20a%203D%20virtual%20tour%20for%20a%20listing.%20Address%3A%20_____%20Size%3A%20_____%20Timing%3A%20_____">
+          Email to Book
+        </a>
+        <a class="btn secondary" href="tel:(587) 709 2475">Call / Text</a>
+        <span class="mini">Reply “TOUR” + listing address</span>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <b>Get more serious buyers</b>
+          <p>Buyers can explore the home online first, so showings are higher quality and less time-wasting.</p>
+        </div>
+        <div class="card">
+          <b>Stand out instantly</b>
+          <p>Listings with virtual tours feel more professional and modern. Yours won’t blend in.</p>
+        </div>
+        <div class="card">
+          <b>Fast and simple</b>
+          <p>One quick walkthrough on site. You get a clean tour link you can post anywhere.</p>
+        </div>
+      </div>
+
+      <div class="notice">
+        <span class="spark"></span>
+        Used by agents to upgrade listings and improve buyer experience.
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Pricing</h2>
+      <p class="hint">Straightforward. You get a working tour link you can post immediately.</p>
+
+      <div class="pricing">
+        <div class="price">
+          <span class="tag">STARTER</span>
+          <h3>Condo / Small Space</h3>
+          <div class="amt">$150</div>
+          <ul>
+            <li>3D walkthrough tour</li>
+            <li>Basic cleanup + link delivery</li>
+            <li>24h turnaround (typical)</li>
+          </ul>
+          <div class="fine">Best for condos, studios, small townhomes.</div>
+        </div>
+
+        <div class="price">
+          <span class="tag">STANDARD</span>
+          <h3>Home / Townhouse</h3>
+          <div class="amt">$200</div>
+          <ul>
+            <li>3D walkthrough tour</li>
+            <li>Clean share link + optional title card</li>
+            <li>24h turnaround (typical)</li>
+          </ul>
+          <div class="fine">Most common listing size.</div>
+        </div>
+
+        <div class="price">
+          <span class="tag">PRO</span>
+          <h3>Large Home</h3>
+          <div class="amt">$250+</div>
+          <ul>
+            <li>3D walkthrough tour</li>
+            <li>Branding / agent intro (optional)</li>
+            <li>Fast delivery</li>
+          </ul>
+          <div class="fine">Final price depends on size/complexity.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>How it works</h2>
+      <p class="hint">Simple process. No back-and-forth marathon.</p>
+
+      <div class="how">
+        <div class="steps">
+          <ol>
+            <li>You text/email me the listing address + preferred time.</li>
+            <li>I shoot a quick 3D walkthrough tour on-site.</li>
+            <li>You get a share link within 24 hours (usually sooner).</li>
+            <li>You post it on your listing, socials, and send it to buyers.</li>
+          </ol>
+        </div>
+        <div class="box">
+          <b style="color:#f2f2ff">What I need from you</b><br><br>
+          Access instructions + a 45-60 minute window (most places).<br><br>
+          <b style="color:#f2f2ff">Deliverable</b><br>
+          A clean tour link + optional title card. (Branding available.)<br><br>
+          <b style="color:#f2f2ff">Fast request format</b><br>
+          <code>TOUR</code> + address + size + ideal time.
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>FAQ</h2>
+      <p class="hint">Quick answers. No mystery.</p>
+
+      <div class="faq">
+        <details>
+          <summary>What is a “3D walkthrough tour”?</summary>
+          <p>An interactive tour link where buyers can “walk” through the property online, room by room.</p>
+        </details>
+        <details>
+          <summary>How fast can you deliver?</summary>
+          <p>Typical delivery is within 24 hours. If you need same-day, tell me and I’ll confirm availability.</p>
+        </details>
+        <details>
+          <summary>Do you do photos too?</summary>
+          <p>Optional. I can add basic listing photos if needed, but the main offer is the 3D walkthrough tour.</p>
+        </details>
+        <details>
+          <summary>Can you do all my listings?</summary>
+          <p>Yes. That’s the goal — consistent tours across your listings with predictable turnaround.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Book a tour</h2>
+      <p class="hint">Reply “TOUR” + listing address. I’ll respond with the next available time.</p>
+
+      <div class="row">
+        <a class="btn primary" href="mailto:rishij1995@gmail.com?subject=3D%20Virtual%20Tour%20Request&body=Hi%20Reesh%2C%20Address%3A%20_____%20Size%3A%20_____%20Ideal%20time%3A%20_____%20">
+          Email Now
+        </a>
+        <a class="btn secondary" href="tel:(587) 709 2475">Call / Text</a>
+        <span class="mini">24h turnaround (typical)</span>
+      </div>
+    </section>
+
+    <div class="footer">
+      <span>© <span id="y"></span> Reesh — 3D Virtual Tours</span>
+      <span>Built as a simple landing page (fast + clean)</span>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
